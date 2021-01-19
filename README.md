@@ -1,2 +1,2 @@
 # Personal
-At the moment this is a trial
+Tool to run value investing 
