@@ -1,7 +1,4 @@
-import pandas as pd
-
-from Value_Investing.stock_class import STOCK
-from Value_Investing.utils import get_stock_fundamentals, filter_stocks
+from utils import get_stock_fundamentals, filter_stocks
 if __name__ == '__main__':
     stock_list = ['aapl', 'AMZN']
 

@@ -1,6 +1,6 @@
 import pandas as pd
 
-from Value_Investing.stock_class import STOCK
+from stock_class import STOCK
 
 
 def get_stock_fundamentals(stock_list):
