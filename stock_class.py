@@ -1,6 +1,6 @@
 import yahooquery as yq
 
-# aapl = yq.Ticker('aapl')
+aapl = yq.Ticker('aapl')
 # income_stat = aapl.income_statement()
 
 class STOCK:
@@ -10,48 +10,151 @@ class STOCK:
         self.ticker_id = ticker_id
 
     def balance_sheet(self):
+        """
+        keys:
+        ['asOfDate', 'periodType', 'AccountsPayable', 'AccountsReceivable',
+       'AccumulatedDepreciation', 'AllowanceForDoubtfulAccountsReceivable',
+       'AvailableForSaleSecurities', 'CapitalStock', 'CashAndCashEquivalents',
+       'CashCashEquivalentsAndShortTermInvestments', 'CashEquivalents',
+       'CashFinancial', 'CommercialPaper', 'CommonStock', 'CommonStockEquity',
+       'CurrentAccruedExpenses', 'CurrentAssets', 'CurrentDebt',
+       'CurrentDebtAndCapitalLeaseObligation', 'CurrentDeferredLiabilities',
+       'CurrentDeferredRevenue', 'CurrentLiabilities',
+       'GainsLossesNotAffectingRetainedEarnings', 'Goodwill',
+       'GoodwillAndOtherIntangibleAssets', 'GrossAccountsReceivable',
+       'GrossPPE', 'Inventory', 'InvestedCapital',
+       'InvestmentinFinancialAssets', 'InvestmentsAndAdvances',
+       'LandAndImprovements', 'Leases', 'LongTermDebt',
+       'LongTermDebtAndCapitalLeaseObligation', 'MachineryFurnitureEquipment',
+       'NetDebt', 'NetPPE', 'NetTangibleAssets',
+       'NonCurrentDeferredLiabilities', 'NonCurrentDeferredRevenue',
+       'NonCurrentDeferredTaxesLiabilities', 'OrdinarySharesNumber',
+       'OtherCurrentAssets', 'OtherCurrentBorrowings',
+       'OtherCurrentLiabilities', 'OtherIntangibleAssets',
+       'OtherNonCurrentAssets', 'OtherNonCurrentLiabilities',
+       'OtherReceivables', 'OtherShortTermInvestments', 'Payables',
+       'PayablesAndAccruedExpenses', 'Properties', 'Receivables',
+       'RetainedEarnings', 'ShareIssued', 'StockholdersEquity',
+       'TangibleBookValue', 'TotalAssets', 'TotalCapitalization', 'TotalDebt',
+       'TotalEquityGrossMinorityInterest',
+       'TotalLiabilitiesNetMinorityInterest', 'TotalNonCurrentAssets',
+       'TotalNonCurrentLiabilitiesNetMinorityInterest',
+       'TradeandOtherPayablesNonCurrent', 'WorkingCapital']
+        """
         return self.ticker.balance_sheet()
 
     def cash_flow(self):
+        """
+        keys:
+        ['asOfDate', 'periodType', 'BeginningCashPosition', 'CapitalExpenditure',
+       'CashDividendsPaid', 'CashFlowFromContinuingFinancingActivities',
+       'ChangeInAccountPayable', 'ChangeInCashSupplementalAsReported',
+       'ChangeInInventory', 'ChangeInWorkingCapital',
+       'ChangesInAccountReceivables', 'CommonStockIssuance',
+       'DeferredIncomeTax', 'DepreciationAndAmortization', 'EndCashPosition',
+       'FreeCashFlow', 'InvestingCashFlow', 'NetIncome',
+       'NetOtherFinancingCharges', 'NetOtherInvestingChanges',
+       'OperatingCashFlow', 'OtherNonCashItems', 'PurchaseOfBusiness',
+       'PurchaseOfInvestment', 'RepaymentOfDebt', 'RepurchaseOfCapitalStock',
+       'SaleOfInvestment', 'StockBasedCompensation']
+        """
         return self.ticker.cash_flow()
 
     def income_statement(self):
+        """
+        keys:
+        ['asOfDate', 'periodType', 'BasicAverageShares', 'BasicEPS',
+       'CostOfRevenue', 'DilutedAverageShares', 'DilutedEPS',
+       'DilutedNIAvailtoComStockholders', 'EBIT', 'EBITDA', 'GrossProfit',
+       'InterestExpense', 'InterestExpenseNonOperating', 'InterestIncome',
+       'InterestIncomeNonOperating', 'NetIncome',
+       'NetIncomeCommonStockholders', 'NetIncomeContinuousOperations',
+       'NetIncomeFromContinuingAndDiscontinuedOperation',
+       'NetIncomeFromContinuingOperationNetMinorityInterest',
+       'NetIncomeIncludingNoncontrollingInterests', 'NetInterestIncome',
+       'NetNonOperatingInterestIncomeExpense', 'NormalizedEBITDA',
+       'NormalizedIncome', 'OperatingExpense', 'OperatingIncome',
+       'OperatingRevenue', 'OtherIncomeExpense',
+       'OtherNonOperatingIncomeExpenses', 'PretaxIncome',
+       'ReconciledCostOfRevenue', 'ReconciledDepreciation',
+       'ResearchAndDevelopment', 'SellingGeneralAndAdministration',
+       'TaxEffectOfUnusualItems', 'TaxProvision', 'TaxRateForCalcs',
+       'TotalExpenses', 'TotalOperatingIncomeAsReported', 'TotalRevenue']
+        """
         return self.ticker.income_statement()
 
     def valuation_measures(self):
+        """
+        keys:
+        ['asOfDate', 'periodType', 'EnterpriseValue',
+       'EnterprisesValueEBITDARatio', 'EnterprisesValueRevenueRatio',
+       'ForwardPeRatio', 'MarketCap', 'PbRatio', 'PeRatio', 'PegRatio',
+       'PsRatio']
+        """
         return self.ticker.valuation_measures
 
     def all_financial_data(self):
+        """
+        keys:
+        ['asOfDate', 'periodType', 'AccountsPayable', 'AccountsReceivable',
+       'AccumulatedDepreciation', 'AllowanceForDoubtfulAccountsReceivable',
+       'AvailableForSaleSecurities', 'BasicAverageShares', 'BasicEPS',
+       'BeginningCashPosition', 'CapitalExpenditure', 'CapitalStock',
+       'CashAndCashEquivalents', 'CashCashEquivalentsAndShortTermInvestments',
+       'CashDividendsPaid', 'CashEquivalents', 'CashFinancial',
+       'CashFlowFromContinuingFinancingActivities', 'ChangeInAccountPayable',
+       'ChangeInCashSupplementalAsReported', 'ChangeInInventory',
+       'ChangeInWorkingCapital', 'ChangesInAccountReceivables',
+       'CommercialPaper', 'CommonStock', 'CommonStockEquity',
+       'CommonStockIssuance', 'CostOfRevenue', 'CurrentAccruedExpenses',
+       'CurrentAssets', 'CurrentDebt', 'CurrentDebtAndCapitalLeaseObligation',
+       'CurrentDeferredLiabilities', 'CurrentDeferredRevenue',
+       'CurrentLiabilities', 'DeferredIncomeTax',
+       'DepreciationAndAmortization', 'DilutedAverageShares', 'DilutedEPS',
+       'DilutedNIAvailtoComStockholders', 'EBIT', 'EndCashPosition',
+       'EnterpriseValue', 'EnterprisesValueEBITDARatio',
+       'EnterprisesValueRevenueRatio', 'ForwardPeRatio', 'FreeCashFlow',
+       'GainsLossesNotAffectingRetainedEarnings', 'Goodwill',
+       'GoodwillAndOtherIntangibleAssets', 'GrossAccountsReceivable',
+       'GrossPPE', 'GrossProfit', 'InterestExpense',
+       'InterestExpenseNonOperating', 'InterestIncome',
+       'InterestIncomeNonOperating', 'Inventory', 'InvestedCapital',
+       'InvestingCashFlow', 'InvestmentinFinancialAssets',
+       'InvestmentsAndAdvances', 'LandAndImprovements', 'Leases',
+       'LongTermDebt', 'LongTermDebtAndCapitalLeaseObligation',
+       'MachineryFurnitureEquipment', 'MarketCap', 'NetDebt', 'NetIncome',
+       'NetIncomeCommonStockholders',
+       'NetIncomeContinuousOperations',
+       'NetIncomeFromContinuingAndDiscontinuedOperation',
+       'NetIncomeFromContinuingOperationNetMinorityInterest',
+       'NetIncomeIncludingNoncontrollingInterests', 'NetInterestIncome',
+       'NetNonOperatingInterestIncomeExpense', 'NetOtherFinancingCharges',
+       'NetOtherInvestingChanges', 'NetPPE', 'NetTangibleAssets',
+       'NonCurrentDeferredLiabilities', 'NonCurrentDeferredRevenue',
+       'NonCurrentDeferredTaxesLiabilities', 'NormalizedEBITDA',
+       'NormalizedIncome', 'OperatingCashFlow', 'OperatingExpense',
+       'OperatingIncome', 'OperatingRevenue', 'OrdinarySharesNumber',
+       'OtherCurrentAssets', 'OtherCurrentBorrowings',
+       'OtherCurrentLiabilities', 'OtherIncomeExpense',
+       'OtherIntangibleAssets', 'OtherNonCashItems', 'OtherNonCurrentAssets',
+       'OtherNonCurrentLiabilities', 'OtherNonOperatingIncomeExpenses',
+       'OtherReceivables', 'OtherShortTermInvestments', 'Payables',
+       'PayablesAndAccruedExpenses', 'PbRatio', 'PeRatio', 'PegRatio',
+       'PretaxIncome', 'Properties', 'PsRatio', 'PurchaseOfBusiness',
+       'PurchaseOfInvestment', 'Receivables', 'ReconciledCostOfRevenue',
+       'ReconciledDepreciation', 'RepaymentOfDebt', 'RepurchaseOfCapitalStock',
+       'ResearchAndDevelopment', 'RetainedEarnings', 'SaleOfInvestment',
+       'SellingGeneralAndAdministration', 'ShareIssued',
+       'StockBasedCompensation', 'StockholdersEquity', 'TangibleBookValue',
+       'TaxEffectOfUnusualItems', 'TaxProvision', 'TaxRateForCalcs',
+       'TotalAssets', 'TotalCapitalization', 'TotalDebt',
+       'TotalEquityGrossMinorityInterest', 'TotalExpenses',
+       'TotalLiabilitiesNetMinorityInterest', 'TotalNonCurrentAssets',
+       'TotalNonCurrentLiabilitiesNetMinorityInterest',
+       'TotalOperatingIncomeAsReported', 'TotalRevenue',
+       'TradeandOtherPayablesNonCurrent', 'WorkingCapital']
+        """
         return self.ticker.all_financial_data()
-
-
-    def get_roce(self):
-        ebit = self.income_statement()[self.income_statement().periodType == '12M'].iloc[-1]['EBIT']
-        total_assets = self.balance_sheet()[self.balance_sheet().periodType == '12M'].iloc[-1]['TotalAssets']
-        current_liabilities = self.balance_sheet()[self.balance_sheet().periodType == '12M'].iloc[-1]['CurrentLiabilities']
-
-        roce = ebit / (total_assets - current_liabilities)
-
-        return roce
-
-    def ev_fcf(self):
-        ev = self.all_financial_data()['EnterpriseValue'][-1]
-        fcf = self.all_financial_data()['FreeCashFlow'][-1]
-
-        return ev / fcf
-
-    def momentum(self):
-        price_history_last_year = self.ticker.history(period='1y')['close']
-        momentum = (price_history_last_year[-1] / price_history_last_year[0]) - 1
-
-        return momentum
-
-    def beta(self):
-        module = 'defaultKeyStatistics'
-        values = self.ticker.get_modules(module)
-        beta = values[self.ticker_id]['beta']
-
-        return beta
 
     def summary_detail(self):
         """
@@ -100,6 +203,34 @@ class STOCK:
         summary_detail = self.ticker.summary_detail
 
         return summary_detail
+
+    def get_roce(self):
+        ebit = self.income_statement()[self.income_statement().periodType == '12M'].iloc[-1]['EBIT']
+        total_assets = self.balance_sheet()[self.balance_sheet().periodType == '12M'].iloc[-1]['TotalAssets']
+        current_liabilities = self.balance_sheet()[self.balance_sheet().periodType == '12M'].iloc[-1]['CurrentLiabilities']
+
+        roce = ebit / (total_assets - current_liabilities)
+
+        return roce
+
+    def ev_fcf(self):
+        ev = self.all_financial_data()['EnterpriseValue'][-1]
+        fcf = self.all_financial_data()['FreeCashFlow'][-1]
+
+        return ev / fcf
+
+    def momentum(self):
+        price_history_last_year = self.ticker.history(period='1y')['close']
+        momentum = (price_history_last_year[-1] / price_history_last_year[0]) - 1
+
+        return momentum
+
+    def beta(self):
+        module = 'defaultKeyStatistics'
+        values = self.ticker.get_modules(module)
+        beta = values[self.ticker_id]['beta']
+
+        return beta
 
     def dividend_yield(self):
         try:

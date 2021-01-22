@@ -4,6 +4,11 @@ from stock_class import STOCK
 
 
 def get_stock_fundamentals(stock_list):
+    """
+    :param list stock_list: list with tickers from stock values
+
+    :return pandas.DataFrame: stock values containing the fundamental analysis ratios
+    """
     fundamental_ratios = ['roce', 'ev_fcf', 'momentum', 'div', 'beta']
     fundamental_results = pd.DataFrame(data=None, columns=fundamental_ratios, index=stock_list)
 
@@ -19,6 +24,11 @@ def get_stock_fundamentals(stock_list):
 
 
 def filter_stocks(ratios_filter, stocks_df):
+    """
+   :param dict ratios_filter: dictionary containing the fundamental analysis ratios to be filtered
+    :param pandas.DataFrame stocks_df: stock values containing fundamental analysis information
+    :return pandas.DataFrame: stock values but filtered by the ratios given
+    """
     selected_values = stocks_df[(stocks_df['roce'] > ratios_filter['roce']) & (stocks_df['ev_fcf'] < ratios_filter['ev_fcf'])
                                 & (stocks_df['momentum'] < ratios_filter['momentum']) & (stocks_df['beta'] < ratios_filter['beta'])]
 
