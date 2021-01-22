@@ -1,32 +1,25 @@
-import yahooquery as yq
+import pandas as pd
 
-aapl = yq.Ticker('aapl')
-aapl = Ticker('aapl')
-income_stat = aapl.income_statement()
-
-class STOCK:
-
-    def __init__(self, ticker_id):
-        self.ticker = yq.Ticker(ticker_id)
-
-    def balance_sheet(self):
-        return self.ticker.balance_sheet()
-
-    def cash_flow(self):
-        return self.ticker.cash_flow()
-
-    def income_statement(self):
-        return self.ticker.income_statement()
+from stock_class import STOCK
 
 
-    def get_roce(self):
-        ebit = stock.income_statement()[stock.income_statement().periodType == '12M'].iloc[-1]['EBIT']
-        total_assets = stock.balance_sheet()[stock.balance_sheet().periodType == '12M'].iloc[-1]['TotalAssets']
-        current_liabilities = stock.balance_sheet()[stock.balance_sheet().periodType == '12M'].iloc[-1]['CurrentLiabilities']
+def get_stock_fundamentals(stock_list):
+    fundamental_ratios = ['roce', 'ev_fcf', 'momentum', 'div', 'beta']
+    fundamental_results = pd.DataFrame(data=None, columns=fundamental_ratios, index=stock_list)
 
-        roce = ebit / (total_assets - current_liabilities)
-        return roce
+    for i in stock_list:
+        stock = STOCK(i.lower())
+        fundamental_results['roce'].loc[i] = stock.get_roce()
+        fundamental_results['ev_fcf'].loc[i] = stock.ev_fcf()
+        fundamental_results['momentum'].loc[i] = stock.momentum()
+        fundamental_results['div'].loc[i] = stock.dividend_yield()
+        fundamental_results['beta'].loc[i] = stock.beta()
 
-if __name__== '__main__':
-    stock = STOCK("aapl".lower())
-    roce = stock.get_roce()
+    return fundamental_results
+
+
+def filter_stocks(ratios_filter, stocks_df):
+    selected_values = stocks_df[(stocks_df['roce'] > ratios_filter['roce']) & (stocks_df['ev_fcf'] < ratios_filter['ev_fcf'])
+                                & (stocks_df['momentum'] < ratios_filter['momentum']) & (stocks_df['beta'] < ratios_filter['beta'])]
+
+    return selected_values
