@@ -1,6 +1,6 @@
 import pandas as pd
 
-from stock_class import STOCK
+from stock_class import STOCK, RATIO_CALCULATOR
 
 
 def get_stock_fundamentals(stock_list):
@@ -14,10 +14,11 @@ def get_stock_fundamentals(stock_list):
 
     for i in stock_list:
         stock = STOCK(i.lower())
-        fundamental_results['roce'].loc[i] = stock.get_roce()
-        fundamental_results['ev_fcf'].loc[i] = stock.ev_fcf()
+        ratios = RATIO_CALCULATOR(i.lower())
+        fundamental_results['roce'].loc[i] = ratios.roce()
+        fundamental_results['ev_fcf'].loc[i] = ratios.ev_fcf()
         fundamental_results['momentum'].loc[i] = stock.momentum()
-        fundamental_results['div'].loc[i] = stock.dividend_yield()
+        fundamental_results['div'].loc[i] = ratios.dividend_yield()
         fundamental_results['beta'].loc[i] = stock.beta()
 
     return fundamental_results
