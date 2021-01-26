@@ -294,15 +294,68 @@ class RATIO_CALCULATOR(STOCK):
 
         return roe
 
+    def reinvesting_rate(self):
+        """
+        The reinvesting rate is calculated as the division between Investing cash flow and Operating cash flow. However,
+        it may happen that Investing cash flow is positive due to sales of investments or net other investment changes.
+        Hence, I have deducted the positive values from Operating cash flow so only proper investing values (negative)
+        are taking into account.
 
+        :return: Reinvesting rate
+        """
+        operating_cash_flow = self.stock.cash_flow()[self.stock.cash_flow().periodType == '12M']['OperatingCashFlow']
+
+        investing_cash_flow = self.stock.cash_flow()[self.stock.cash_flow().periodType == '12M']['InvestingCashFlow']
+        sale_of_investment = self.stock.cash_flow()[self.stock.cash_flow().periodType == '12M']['SaleOfInvestment']
+        try:
+            net_other_investment_changes = self.stock.cash_flow()[self.stock.cash_flow().periodType == '12M']['NetOtherInvestingChanges'].fillna(0)
+            net_other_investment_changes = net_other_investment_changes.apply(lambda x: 0 if x < 0 else x)
+        except:
+            net_other_investment_changes = sale_of_investment.copy()
+            net_other_investment_changes.loc[:] = 0
+
+        only_investing_cash_flow = investing_cash_flow - sale_of_investment - net_other_investment_changes
+
+        reinvesting_rate = (abs(only_investing_cash_flow) / operating_cash_flow).mean()
+
+        return reinvesting_rate
+
+    def debt_ebitda_ratio(self):
+        total_debt = self.stock.balance_sheet()[self.stock.balance_sheet().periodType== '12M']['TotalDebt'].iloc[-1]
+        ebitda = self.stock.income_statement()['EBITDA'].iloc[-1]
+
+        debt_ebitda_ratio = total_debt / ebitda
+
+        return debt_ebitda_ratio
+
+    def gross_marging(self):
+        total_revenue = self.stock.income_statement()[self.stock.income_statement().periodType == '12M']['TotalRevenue'].iloc[-1]
+        gross_profit = self.stock.income_statement()[self.stock.income_statement().periodType == '12M']['GrossProfit'].iloc[-1]
+
+        gross_marging = gross_profit / total_revenue
+
+        return gross_marging
+
+    def operating_marging(self):
+        """
+        The operating income might be either positive or negative (profit or loss
+        :return:
+        """
+        total_revenue = self.stock.income_statement()[self.stock.income_statement().periodType == '12M']['TotalRevenue'].iloc[-1]
+        operating_income = self.stock.income_statement()[self.stock.income_statement().periodType == '12M']['OperatingIncome'].iloc[-1]
+
+        operating_maring = operating_income / total_revenue
+
+        return operating_maring
 
 if __name__== '__main__':
-    stock = STOCK("aapl".lower())
-    beta = stock.beta()
+    stock = STOCK("NVDA".lower())
+    # beta = stock.beta()
     # ev_ebitda = stock.valuation_measures()['EnterprisesValueEBITDARatio']
     # ebitda = stock.income_statement()['EBITDA']
     # ev = stock.valuation_measures()['EnterpriseValue']
-    ratios = RATIO_CALCULATOR('AAPL')
-    ratios.roce()
+    ratios = RATIO_CALCULATOR('NVDA')
+    # ratios.roce()
+    ratios.reinvesting_rate()
 
 
