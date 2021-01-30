@@ -11,6 +11,69 @@ class STOCK:
 
     def balance_sheet(self):
         """
+        A balance sheet is a financial statement that reports a company's assets, liabilities and shareholders' equity
+        at a specific point in time, and provides a basis for computing rates of return and evaluating its capital structure.
+        It is a financial statement that provides a snapshot of what a company owns and owes, as well as the amount invested by shareholders.
+        The balance sheet is a snapshot representing the state of a company's finances at a moment in time. By itself, it cannot give a sense of the trends that are playing out over a longer period. For this reason, the balance sheet should be compared with those of previous periods. It should also be compared with those of other businesses in the same industry since different industries have unique approaches to financing.
+
+        A number of ratios can be derived from the balance sheet, helping investors get a sense of how healthy a company is. These include the debt-to-equity ratio and the acid-test ratio, along with many others. The income statement and statement of cash flows also provide valuable context for assessing a company's finances, as do any notes or addenda in an earnings report that might refer back to the balance sheet.
+
+        ASSETS
+        Within the assets segment, accounts are listed from top to bottom in order of their liquidity – that is, the ease with which they can be converted into cash. They are divided into current assets, which can be converted to cash in one year or less; and non-current or long-term assets, which cannot.
+        Here is the general order of accounts within current assets:
+
+            * CASH AND CASH EQUIVALENTS: are the most liquid assets and can include Treasury bills and short-term certificates of deposit,
+             as well as hard currency.
+            * MARKEATABLE SECURITIES: are equity and debt securities for which there is a liquid market.
+            * ACCOUNTS RECEIVABLE: refers to money that customers owe the company, perhaps including an allowance for doubtful accounts since a certain proportion of customers can be expected not to pay.
+            * INVENTORY: is goods available for sale, valued at the lower of the cost or market price.
+            * PREPAID EXPENSES: represent the value that has already been paid for, such as insurance, advertising contracts or rent.
+            * LONG-TERM ASSETS: include the following:
+
+                - LONG_TERM INVESTMENTS: are securities that will not or cannot be liquidated in the next year.
+                - FIXED ASSETS: include land, machinery, equipment, buildings and other durable, generally capital-intensive assets.
+                - INTANGIBLE ASSETS: include non-physical (but still valuable) assets such as intellectual property and goodwill. In general, intangible assets are only listed on the balance sheet if they are acquired, rather than developed in-house. Their value may thus be wildly understated – by not including a globally recognized logo, for example – or just as wildly overstated.
+
+        LIABILITIES
+            Liabilities are the money that a company owes to outside parties, from bills it has to pay to suppliers to interest on bonds it has issued to creditors to rent, utilities and salaries. Current liabilities are those that are due within one year and are listed in order of their due date. Long-term liabilities are due at any point after one year.
+
+            Current liabilities accounts might include:
+
+                * current portion of long-term debt
+                * bank indebtedness
+                * interest payable
+                * wages payable
+                * customer prepayments
+                * dividends payable and others
+                * earned and unearned premiums
+                * accounts payable
+
+            Long-term liabilities can include:
+
+                * Long-term debt: interest and principal on bonds issued
+                * Pension fund liability: the money a company is required to pay into its employees' retirement accounts
+                * Deferred tax liability: taxes that have been accrued but will not be paid for another year (Besides timing, this figure reconciles differences between requirements for financial reporting and the way tax is assessed, such as depreciation calculations.)
+                * Some liabilities are considered off the balance sheet, meaning that they will not appear on the balance sheet.
+
+        Shareholders' Equity
+            Shareholders' equity is the money attributable to a business' owners, meaning its shareholders. It is also
+            known as "net assets," since it is equivalent to the total assets of a company minus its liabilities, that is,
+             the debt it owes to non-shareholders.
+
+            Retained earnings are the net earnings a company either reinvests in the business or use to pay off debt;
+            the rest is distributed to shareholders in the form of dividends.
+            Treasury stock is the stock a company has repurchased. It can be sold at a later date to raise cash or reserved
+             to repel a hostile takeover.
+            Some companies issue preferred stock, which will be listed separately from common stock under shareholders' equity.
+             Preferred stock is assigned an arbitrary par value – as is common stock, in some cases – that has no bearing
+             on the market value of the shares (often, par value is just $0.01). The "common stock" and "preferred stock"
+             accounts are calculated by multiplying the par value by the number of shares issued.
+
+            Additional paid-in capital or capital surplus represents the amount shareholders have invested in excess of
+            the "common stock" or "preferred stock" accounts, which are based on par value rather than market price.
+            Shareholders' equity is not directly related to a company's market capitalization: the latter is based on the
+            current price of a stock, while paid-in capital is the sum of the equity that has been purchased at any price.
+
         keys:
         ['asOfDate', 'periodType', 'AccountsPayable', 'AccountsReceivable',
        'AccumulatedDepreciation', 'AllowanceForDoubtfulAccountsReceivable',
@@ -217,6 +280,11 @@ class STOCK:
 
         return beta
 
+    def major_holders(self):
+        major_holders = self.ticker.major_holders
+
+        return major_holders
+
 
 
 
@@ -348,13 +416,28 @@ class RATIO_CALCULATOR(STOCK):
 
         return operating_maring
 
+    def researchanddevelopment(self):
+        research_and_development = self.stock.income_statement()[self.stock.income_statement().periodType == '12M']['ResearchAndDevelopment'].iloc[-1]
+
+        return research_and_development
+
+    def insiderspercentheld(self):
+        insiders = self.stock.major_holders()[self.ticker_id]['insidersPercentHeld']
+
+        return insiders
+
+    def institutionspercentheld(self):
+        institutionspercentheld = self.stock.major_holders()[self.ticker_id]['institutionsPercentHeld']
+
+        return institutionspercentheld
+
 if __name__== '__main__':
-    stock = STOCK("NVDA".lower())
+    stock = STOCK("aapl".lower())
     # beta = stock.beta()
     # ev_ebitda = stock.valuation_measures()['EnterprisesValueEBITDARatio']
     # ebitda = stock.income_statement()['EBITDA']
     # ev = stock.valuation_measures()['EnterpriseValue']
-    ratios = RATIO_CALCULATOR('NVDA')
+    ratios = RATIO_CALCULATOR('aapl')
     # ratios.roce()
     ratios.reinvesting_rate()
 

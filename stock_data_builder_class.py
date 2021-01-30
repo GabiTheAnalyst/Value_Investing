@@ -5,7 +5,8 @@ from stock_class import STOCK, RATIO_CALCULATOR
 def stock_data_builder(ticker_id):
     attributes = ['price', 'fifty_two_week_low', 'fifty_two_week_high', 'currency', 'EV/EBITDA', 'EV/FCF',
                   'PER', 'PEG', 'PB', 'PS', 'ROCE', 'Reinvesting Rate', 'Annual Profit Growth Forecast', 'ROIC', 'ROA', 'ROE',
-                  'Debt / EBITDA', 'Gross Marging', 'Operating Marging']
+                  'Debt / EBITDA', 'Gross Marging', 'Operating Marging', 'Research and Development', 'Insiders % Held',
+                  'Institutional % Held']
     ticker_id = [ticker.lower() for ticker in ticker_id]
     data_df = pd.DataFrame(data=None, columns=attributes, index=ticker_id)
 
@@ -37,11 +38,17 @@ def stock_data_builder(ticker_id):
         gross_marging = ratios.gross_marging()
         operating_marging = ratios.operating_marging()
 
+        research_and_development = ratios.researchanddevelopment()
+        insiderspercentheld = ratios.insiderspercentheld()
+        institutionalpercentheld = ratios.institutionspercentheld()
+
         data = {'price': price, 'fifty_two_week_low': fifty_two_week_low, 'fifty_two_week_high': fifty_two_week_high,
                 'currency': currency, 'EV/EBITDA': ev_ebitda_ratio, 'EV/FCF': ev_fcf_ratio, 'PER': pe_ratio,
                 'PEG': peg_ratio, 'PB': pb_ratio, 'PS': ps_ratio, 'ROCE': roce, 'Reinvesting Rate': reinvesting_rate,
                 'Annual Profit Growth Forecast': annual_profit_growth_forecast, 'ROIC': roic, 'ROA': roa, 'ROE': roe,
-                'Debt / EBITDA': debt_ebitda_ratio, 'Gross Marging': gross_marging, 'Operating Marging': operating_marging}
+                'Debt / EBITDA': debt_ebitda_ratio, 'Gross Marging': gross_marging, 'Operating Marging': operating_marging,
+                'Research and Development': research_and_development, 'Insiders % Held':insiderspercentheld,
+                'Institutional % Held': institutionalpercentheld}
 
         data_df.loc[ticker] = data
 
